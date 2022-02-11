@@ -1,0 +1,25 @@
+From 38b8516c9c1f2c5b38137c93007a72de31a7f678 Mon Sep 17 00:00:00 2001
+From: Michael Arthur Long <adhaxclient@hotmail.com>
+Date: Sat, 12 Feb 2022 06:50:44 +0800
+Subject: [PATCH] bionic: ignore shared library text segment is not shareable
+ warning
+
+---
+ libc/Android.mk | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libc/Android.mk b/libc/Android.mk
+index db1c3e6a2..502483cbb 100644
+--- a/libc/Android.mk
++++ b/libc/Android.mk
+@@ -1061,6 +1061,7 @@ LOCAL_SYSTEM_SHARED_LIBRARIES :=
+ LOCAL_LDFLAGS_arm64 := -Wl,--exclude-libs,libgcc.a
+ LOCAL_LDFLAGS_mips64 := -Wl,--exclude-libs,libgcc.a
+ LOCAL_LDFLAGS_x86_64 := -Wl,--exclude-libs,libgcc.a
++LOCAL_LDLIBS += -Wl,--no-warn-shared-textrel
+ 
+ $(eval $(call patch-up-arch-specific-flags,LOCAL_CFLAGS,libc_common_cflags))
+ $(eval $(call patch-up-arch-specific-flags,LOCAL_SRC_FILES,libc_arch_dynamic_src_files))
+-- 
+2.35.1
+
